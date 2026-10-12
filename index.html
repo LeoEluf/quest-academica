@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quest Acadêmica - Supreme Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="arcade-cabinet">
+        <div class="arcade-marquee">QUEST ACADÊMICA</div>
+        
+        <div id="game-container">
+            
+            <!-- 1. TELA INICIAL (MENU) -->
+            <div id="start-screen" class="tela-cheia">
+                <div class="perfil-topo">
+                    <span id="lvl-display" class="highlight-text">Lvl: 1</span> | 💎 <span id="global-cristais">0</span> | <span id="hero-display">Aventureiro</span>
+                </div>
+                
+                <!-- Título Animado -->
+                <h1 class="titulo-jogo anim-glow">O Labirinto<br>de Pixel</h1>
+                
+                <div class="menu-botoes">
+                    <button id="btn-jogar" class="menu-btn anim-pop">▶ Aventura (Aleatório)</button>
+                    <button id="btn-masmorras" class="menu-btn anim-pop" style="background-color: #8e44ad;">🚪 Masmorras</button>
+                    <button id="btn-hospital" class="menu-btn anim-pop" style="background-color: #c0392b;">🏥 Hospital (Revisão)</button>
+                    <div style="display:flex; gap:10px;">
+                        <button id="btn-herois" class="menu-btn anim-pop" style="flex:1;">🧙 Heróis</button>
+                        <button id="btn-boletim" class="menu-btn anim-pop" style="flex:1;">📊 Boletim</button>
+                    </div>
+                    <!-- BOTÃO DE CONFIGURAÇÕES AQUI -->
+                    <button id="btn-config" class="menu-btn anim-pop" style="background-color: #7f8c8d; margin-top:10px;">⚙️ Configurações</button>
+                </div>
+            </div>
+
+            <!-- 2. TELA DE HERÓIS -->
+            <div id="heroes-screen" class="tela-cheia escondido">
+                <h2 style="color:#f1c40f; margin-bottom:10px;" class="anim-glow">Taverna</h2>
+                <p style="font-size:10px; color:#bdc3c7; margin-bottom:20px;">Cristais Globais: 💎 <span id="loja-cristais">0</span></p>
+                <div class="scroll-box" id="lista-herois"></div>
+                <button class="menu-btn btn-voltar anim-pop" style="margin-top: 20px;">Retornar</button>
+            </div>
+
+            <!-- 3. TELA DE MASMORRAS -->
+            <div id="dungeon-screen" class="tela-cheia escondido">
+                <h2 style="color:#f1c40f; margin-bottom:20px;" class="anim-glow">Masmorras</h2>
+                <div class="scroll-box" id="lista-masmorras"></div>
+                <button class="menu-btn btn-voltar anim-pop" style="margin-top: 20px;">Retornar</button>
+            </div>
+
+            <!-- 4. TELA DE BOLETIM -->
+            <div id="boletim-screen" class="tela-cheia escondido">
+                <h2 style="color:#f1c40f; margin-bottom:10px;" class="anim-glow">Boletim & Conquistas</h2>
+                <div class="scroll-box" style="text-align:left;">
+                    <h3 style="font-size:12px; color:#2ecc71; margin-bottom:10px;">📊 Desempenho</h3>
+                    <div id="stats-list"></div>
+                    <h3 style="font-size:12px; color:#3498db; margin:20px 0 10px 0;">🏆 Conquistas</h3>
+                    <div id="achievements-list"></div>
+                </div>
+                <button class="menu-btn btn-voltar anim-pop" style="margin-top: 20px;">Retornar</button>
+            </div>
+
+            <!-- 5. TELA DE CONFIGURAÇÕES AVANÇADAS -->
+            <div id="settings-screen" class="tela-cheia escondido">
+                <h2 style="color:#f1c40f; margin-bottom: 10px;" class="anim-glow">Configurações</h2>
+                
+                <div class="scroll-box" style="text-align: left;">
+                    <!-- Categoria: Efeitos -->
+                    <h3 class="config-section">🎨 Áudio e Visual</h3>
+                    <div class="config-item"><label>🔊 Som 8-bits</label><button id="btn-toggle-som" class="config-btn on">Ligado</button></div>
+                    <div class="config-item"><label>✨ Animações</label><button id="btn-toggle-anim" class="config-btn on">Ativadas</button></div>
+
+                    <!-- Categoria: Dificuldade -->
+                    <h3 class="config-section">⚙️ Dificuldade Base</h3>
+                    <div class="config-item"><label>❤️ Vida Inicial/Máx (<span id="val-vida">3</span>)</label><input type="range" id="slider-vida" min="1" max="5" value="3"></div>
+                    <div class="config-item"><label>⏱️ Tempo por Questão (<span id="val-tempo">20</span>s)</label><input type="range" id="slider-tempo" min="10" max="60" value="20" step="5"></div>
+
+                    <!-- Categoria: Economia -->
+                    <h3 class="config-section">💎 Mercado (Preços)</h3>
+                    <div class="config-item"><label>❤️ Poção de Cura (<span id="val-pocao">3</span>💎)</label><input type="range" id="slider-pocao" min="1" max="10" value="3"></div>
+                    <div class="config-item"><label>⚔️ Corte 50/50 (<span id="val-espada">2</span>💎)</label><input type="range" id="slider-espada" min="1" max="10" value="2"></div>
+                    <div class="config-item"><label>🛡️ Escudo (<span id="val-escudo">4</span>💎)</label><input type="range" id="slider-escudo" min="1" max="10" value="4"></div>
+                    <div class="config-item"><label>👁️ Oráculo (<span id="val-oraculo">5</span>💎)</label><input type="range" id="slider-oraculo" min="1" max="10" value="5"></div>
+                    <div class="config-item"><label>⏳ Ampulheta (<span id="val-ampulheta">2</span>💎)</label><input type="range" id="slider-ampulheta" min="1" max="10" value="2"></div>
+                </div>
+
+                <button class="menu-btn btn-voltar anim-pop" style="margin-top: 15px;">Salvar & Voltar</button>
+            </div>
+
+            <!-- 6. TELA DO JOGO PRINCIPAL (HUD MELHORADA) -->
+            <div id="gameplay-screen" class="escondido" style="display: flex; flex-direction: column; height: 100%;">
+                
+                <div id="top-bar">
+                    <span id="current-dungeon-name" style="font-size:10px; color:#bdc3c7;">Aventura</span>
+                    <!-- BARRA DE QUANTIDADE DE QUESTÕES -->
+                    <span id="question-counter" style="color: #f1c40f; font-weight: bold; font-size: 10px;">Questão: 1/10</span>
+                    <button id="btn-desistir" class="top-btn anim-pop" style="background-color: #c0392b;">Abandonar</button>
+                </div>
+
+                <div id="timer-container"><div id="timer-bar"></div></div>
+
+                <header id="hud">
+                    <div id="health-bar"></div>
+                    <div id="stats-board">
+                        💎 <span id="match-cristais">0</span> | Combo: <span id="combo-text">0</span>x | Score: <span id="score-text">0</span> 
+                    </div>
+                </header>
+
+                <section id="battle-arena">
+                    <div class="sprite-container" id="container-heroi">
+                        <img src="" id="img-heroi" alt="Herói">
+                        <div id="shield-effect" class="escondido"></div>
+                    </div>
+                    <div class="sprite-container">
+                        <img src="" id="img-monstro" alt="Monstro">
+                        <!-- AVISO DE BOSS -->
+                        <div id="boss-alert" class="escondido boss-glow">💀 RODADA DE CHEFE 💀</div>
+                    </div>
+                </section>
+
+                <section id="dialog-box">
+                    <p id="question-text">Preparando batalha...<span class="cursor-pisca">_</span></p>
+                </section>
+
+                <section id="powerups-panel">
+                    <button class="power-btn anim-pop" id="btn-pocao">❤️ Cura</button>
+                    <button class="power-btn anim-pop" id="btn-espada">⚔️ 50/50</button>
+                    <button class="power-btn anim-pop" id="btn-escudo">🛡️ Escudo</button>
+                    <button class="power-btn anim-pop" id="btn-oraculo">👁️ Oráculo</button>
+                    <button class="power-btn anim-pop" id="btn-ampulheta">⏳ Tempo</button>
+                </section>
+
+                <section id="action-panel"></section>
+            </div>
+
+            <!-- 7. TELA DE FIM DE JOGO -->
+            <div id="endgame-screen" class="tela-cheia escondido">
+                <h1 id="endgame-title" class="anim-glow">FIM!</h1>
+                <p id="endgame-xp" style="color:#2ecc71; font-size:12px; margin-bottom:20px;">+0 XP</p>
+                <div id="level-up-alert" class="escondido" style="color:#f1c40f; margin-bottom:20px; animation:blink 0.5s infinite;">LEVEL UP!</div>
+                <p class="endgame-info">Score Final: <span id="endgame-score">0</span></p>
+                <p class="endgame-info">Rank: <span id="endgame-rank">S</span></p>
+                <button id="btn-restart" class="menu-btn anim-pop" style="margin-top:20px;">Retornar ao Menu</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 8. MODAL DO PURGATÓRIO (Explicação ao errar) -->
+    <div id="feedback-modal" class="escondido z-top">
+        <div class="modal-content modal-entrada">
+            <h2 id="modal-titulo" class="shake-soft">❌ Dano Sofrido!</h2>
+            <p class="modal-subtitulo">A resposta correta era: <br><strong id="modal-resposta-correta"></strong></p>
+            <div class="modal-sabi-diz">
+                <p><strong>Sábio diz:</strong></p>
+                <p id="modal-explicacao"></p>
+            </div>
+            <button id="btn-entendi" class="menu-btn anim-pop" disabled>Lendo... (3)</button>
+        </div>
+    </div>
+
+    <!-- 9. SISTEMA DE POPUP MODULAR (Substitui os alerts do navegador) -->
+    <div id="custom-popup-overlay" class="escondido z-top">
+        <div class="modal-content modal-entrada" style="max-width: 400px; padding: 20px;">
+            <h2 id="custom-popup-title" style="color: #f1c40f; font-size:16px; margin-bottom:15px;">Aviso</h2>
+            <p id="custom-popup-msg" style="font-size: 11px; line-height:1.5; color: #ecf0f1; margin-bottom:20px;"></p>
+            <button id="custom-popup-btn" class="menu-btn anim-pop" style="padding: 10px 20px; font-size:10px;">OK</button>
+        </div>
+    </div>
+
+    <div id="particles-container"></div>
+    <script src="script.js"></script>
+</body>
+</html>
