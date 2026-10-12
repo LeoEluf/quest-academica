@@ -14,29 +14,28 @@
         
         <div id="game-container">
             
-            <!-- 1. TELA INICIAL (MENU) -->
+            <!-- TELA INICIAL (MENU) -->
             <div id="start-screen" class="tela-cheia">
                 <div class="perfil-topo">
                     <span id="lvl-display" class="highlight-text">Lvl: 1</span> | 💎 <span id="global-cristais">0</span> | <span id="hero-display">Aventureiro</span>
                 </div>
                 
-                <!-- Título Animado -->
                 <h1 class="titulo-jogo anim-glow">O Labirinto<br>de Pixel</h1>
                 
                 <div class="menu-botoes">
-                    <button id="btn-jogar" class="menu-btn anim-pop">▶ Aventura (Aleatório)</button>
+                    <button id="btn-jogar" class="menu-btn anim-pop">▶ Aventura (Todas as Perguntas)</button>
                     <button id="btn-masmorras" class="menu-btn anim-pop" style="background-color: #8e44ad;">🚪 Masmorras</button>
                     <button id="btn-hospital" class="menu-btn anim-pop" style="background-color: #c0392b;">🏥 Hospital (Revisão)</button>
                     <div style="display:flex; gap:10px;">
                         <button id="btn-herois" class="menu-btn anim-pop" style="flex:1;">🧙 Heróis</button>
                         <button id="btn-boletim" class="menu-btn anim-pop" style="flex:1;">📊 Boletim</button>
                     </div>
-                    <!-- BOTÃO DE CONFIGURAÇÕES AQUI -->
+                    <button id="btn-bestiario" class="menu-btn anim-pop" style="background-color: #e67e22;">📖 Bestiário</button>
                     <button id="btn-config" class="menu-btn anim-pop" style="background-color: #7f8c8d; margin-top:10px;">⚙️ Configurações</button>
                 </div>
             </div>
 
-            <!-- 2. TELA DE HERÓIS -->
+            <!-- TELA DE HERÓIS -->
             <div id="heroes-screen" class="tela-cheia escondido">
                 <h2 style="color:#f1c40f; margin-bottom:10px;" class="anim-glow">Taverna</h2>
                 <p style="font-size:10px; color:#bdc3c7; margin-bottom:20px;">Cristais Globais: 💎 <span id="loja-cristais">0</span></p>
@@ -44,14 +43,14 @@
                 <button class="menu-btn btn-voltar anim-pop" style="margin-top: 20px;">Retornar</button>
             </div>
 
-            <!-- 3. TELA DE MASMORRAS -->
+            <!-- TELA DE MASMORRAS -->
             <div id="dungeon-screen" class="tela-cheia escondido">
                 <h2 style="color:#f1c40f; margin-bottom:20px;" class="anim-glow">Masmorras</h2>
                 <div class="scroll-box" id="lista-masmorras"></div>
                 <button class="menu-btn btn-voltar anim-pop" style="margin-top: 20px;">Retornar</button>
             </div>
 
-            <!-- 4. TELA DE BOLETIM -->
+            <!-- TELA DE BOLETIM -->
             <div id="boletim-screen" class="tela-cheia escondido">
                 <h2 style="color:#f1c40f; margin-bottom:10px;" class="anim-glow">Boletim & Conquistas</h2>
                 <div class="scroll-box" style="text-align:left;">
@@ -63,41 +62,65 @@
                 <button class="menu-btn btn-voltar anim-pop" style="margin-top: 20px;">Retornar</button>
             </div>
 
-            <!-- 5. TELA DE CONFIGURAÇÕES AVANÇADAS -->
+            <!-- TELA DE BESTIÁRIO -->
+            <div id="bestiary-screen" class="tela-cheia escondido">
+                <h2 style="color:#f1c40f; margin-bottom:20px;" class="anim-glow">Bestiário</h2>
+                <div class="scroll-box" id="lista-bestiario" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-content: flex-start;"></div>
+                <button class="menu-btn btn-voltar anim-pop" style="margin-top: 20px;">Retornar</button>
+            </div>
+
+            <!-- TELA DE CONFIGURAÇÕES AVANÇADAS -->
             <div id="settings-screen" class="tela-cheia escondido">
                 <h2 style="color:#f1c40f; margin-bottom: 10px;" class="anim-glow">Configurações</h2>
                 
                 <div class="scroll-box" style="text-align: left;">
-                    <!-- Categoria: Efeitos -->
+                    <h3 class="config-section">📂 Dados e Personalização</h3>
+                    <div class="config-item"><label>💾 Backup do Save</label>
+                        <div>
+                            <button id="btn-export-save" class="top-btn anim-pop">Exportar</button>
+                            <button id="btn-import-save" class="top-btn anim-pop" style="background-color: #e67e22;">Importar</button>
+                            <input type="file" id="file-import-save" class="escondido" accept=".txt">
+                        </div>
+                    </div>
+                    <div class="config-item"><label>📚 Deck de Questões</label>
+                        <div>
+                            <button id="btn-import-deck" class="top-btn anim-pop" style="background-color: #9b59b6;">Adicionar .json</button>
+                            <input type="file" id="file-import-deck" class="escondido" accept=".json">
+                        </div>
+                    </div>
+
                     <h3 class="config-section">🎨 Áudio e Visual</h3>
-                    <div class="config-item"><label>🔊 Som 8-bits</label><button id="btn-toggle-som" class="config-btn on">Ligado</button></div>
+                    <div class="config-item">
+                        <label>🎵 Faixa Musical</label>
+                        <select id="select-musica" class="config-btn select-box">
+                            <option value="0">Aventura (Padrão)</option>
+                            <option value="1">Épica</option>
+                            <option value="2">Mistério</option>
+                        </select>
+                    </div>
+                    <div class="config-item"><label>🎵 Volume Música (<span id="val-musica">50</span>%)</label><input type="range" id="slider-musica" min="0" max="100" value="50"></div>
+                    <div class="config-item"><label>🔊 Volume Efeitos (<span id="val-sfx">100</span>%)</label><input type="range" id="slider-sfx" min="0" max="100" value="100"></div>
                     <div class="config-item"><label>✨ Animações</label><button id="btn-toggle-anim" class="config-btn on">Ativadas</button></div>
 
-                    <!-- Categoria: Dificuldade -->
                     <h3 class="config-section">⚙️ Dificuldade Base</h3>
                     <div class="config-item"><label>❤️ Vida Inicial/Máx (<span id="val-vida">3</span>)</label><input type="range" id="slider-vida" min="1" max="5" value="3"></div>
-                    <div class="config-item"><label>⏱️ Tempo por Questão (<span id="val-tempo">20</span>s)</label><input type="range" id="slider-tempo" min="10" max="60" value="20" step="5"></div>
-
-                    <!-- Categoria: Economia -->
-                    <h3 class="config-section">💎 Mercado (Preços)</h3>
-                    <div class="config-item"><label>❤️ Poção de Cura (<span id="val-pocao">3</span>💎)</label><input type="range" id="slider-pocao" min="1" max="10" value="3"></div>
-                    <div class="config-item"><label>⚔️ Corte 50/50 (<span id="val-espada">2</span>💎)</label><input type="range" id="slider-espada" min="1" max="10" value="2"></div>
-                    <div class="config-item"><label>🛡️ Escudo (<span id="val-escudo">4</span>💎)</label><input type="range" id="slider-escudo" min="1" max="10" value="4"></div>
-                    <div class="config-item"><label>👁️ Oráculo (<span id="val-oraculo">5</span>💎)</label><input type="range" id="slider-oraculo" min="1" max="10" value="5"></div>
-                    <div class="config-item"><label>⏳ Ampulheta (<span id="val-ampulheta">2</span>💎)</label><input type="range" id="slider-ampulheta" min="1" max="10" value="2"></div>
+                    <div class="config-item"><label>⏳ Modo Sem Tempo</label><button id="btn-toggle-tempo" class="config-btn off">Desativado</button></div>
+                    <div class="config-item"><label>⏱️ Segundos / Questão (<span id="val-tempo">20</span>s)</label><input type="range" id="slider-tempo" min="10" max="60" value="20" step="5"></div>
                 </div>
 
                 <button class="menu-btn btn-voltar anim-pop" style="margin-top: 15px;">Salvar & Voltar</button>
             </div>
 
-            <!-- 6. TELA DO JOGO PRINCIPAL (HUD MELHORADA) -->
+            <!-- TELA DO JOGO PRINCIPAL -->
             <div id="gameplay-screen" class="escondido" style="display: flex; flex-direction: column; height: 100%;">
                 
                 <div id="top-bar">
                     <span id="current-dungeon-name" style="font-size:10px; color:#bdc3c7;">Aventura</span>
-                    <!-- BARRA DE QUANTIDADE DE QUESTÕES -->
                     <span id="question-counter" style="color: #f1c40f; font-weight: bold; font-size: 10px;">Questão: 1/10</span>
-                    <button id="btn-desistir" class="top-btn anim-pop" style="background-color: #c0392b;">Abandonar</button>
+                    <div>
+                        <button id="btn-pular" class="top-btn anim-pop" style="background-color: #3498db; margin-right: 5px;">Pular ⏭️</button>
+                        <button id="btn-desistir" class="top-btn anim-pop" style="background-color: #c0392b;">Abandonar</button>
+                    </div>
                 </div>
 
                 <div id="timer-container"><div id="timer-bar"></div></div>
@@ -109,14 +132,13 @@
                     </div>
                 </header>
 
-                <section id="battle-arena">
+                <section id="battle-arena" class="arena-default">
                     <div class="sprite-container" id="container-heroi">
                         <img src="" id="img-heroi" alt="Herói">
                         <div id="shield-effect" class="escondido"></div>
                     </div>
                     <div class="sprite-container">
                         <img src="" id="img-monstro" alt="Monstro">
-                        <!-- AVISO DE BOSS -->
                         <div id="boss-alert" class="escondido boss-glow">💀 RODADA DE CHEFE 💀</div>
                     </div>
                 </section>
@@ -136,11 +158,11 @@
                 <section id="action-panel"></section>
             </div>
 
-            <!-- 7. TELA DE FIM DE JOGO -->
+            <!-- TELA DE FIM DE JOGO -->
             <div id="endgame-screen" class="tela-cheia escondido">
                 <h1 id="endgame-title" class="anim-glow">FIM!</h1>
                 <p id="endgame-xp" style="color:#2ecc71; font-size:12px; margin-bottom:20px;">+0 XP</p>
-                <div id="level-up-alert" class="escondido" style="color:#f1c40f; margin-bottom:20px; animation:blink 0.5s infinite;">LEVEL UP!</div>
+                <div id="level-up-alert" class="escondido highlight-text" style="color:#f1c40f; margin-bottom:20px; animation:blink 0.5s infinite;">LEVEL UP!</div>
                 <p class="endgame-info">Score Final: <span id="endgame-score">0</span></p>
                 <p class="endgame-info">Rank: <span id="endgame-rank">S</span></p>
                 <button id="btn-restart" class="menu-btn anim-pop" style="margin-top:20px;">Retornar ao Menu</button>
@@ -149,7 +171,7 @@
         </div>
     </div>
 
-    <!-- 8. MODAL DO PURGATÓRIO (Explicação ao errar) -->
+    <!-- MODAL DO PURGATÓRIO -->
     <div id="feedback-modal" class="escondido z-top">
         <div class="modal-content modal-entrada">
             <h2 id="modal-titulo" class="shake-soft">❌ Dano Sofrido!</h2>
@@ -162,7 +184,7 @@
         </div>
     </div>
 
-    <!-- 9. SISTEMA DE POPUP MODULAR (Substitui os alerts do navegador) -->
+    <!-- SISTEMA DE POPUP MODULAR -->
     <div id="custom-popup-overlay" class="escondido z-top">
         <div class="modal-content modal-entrada" style="max-width: 400px; padding: 20px;">
             <h2 id="custom-popup-title" style="color: #f1c40f; font-size:16px; margin-bottom:15px;">Aviso</h2>
